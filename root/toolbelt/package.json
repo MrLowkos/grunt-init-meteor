@@ -1,0 +1,51 @@
+{
+	"name": "lk-dev-environment",
+  "version": "0.1.0",
+  "description": "Meteor with test environment",  
+  "author": "Quentin Defois <qdefois@ngmail.com> (http://eldotk.com/)",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "keywords": [
+		"test",
+		"feedback",
+    "tdd",
+    "acceptance",
+    "testing"
+   	"node",
+		"grunt",
+		"karma",
+		"meteorire",
+		"phantomjs",
+	  "meteor" 
+   ],
+  "main": "./",
+  "private": true ,  
+  "preferGlobal": true,
+  "repository": {
+		"type": "",
+    "url": ""
+  },
+  "dependencies": {
+  	"phantomjs": "1.8.x",
+    "selenium-webdriver": "2.31.x"
+  },
+  "analyze": false,
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2" 
+  },
+  "optionalDependencies": {},
+  "scripts": {
+  	"start": "",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "echo This will be run before deploying the app",
+    "postdeploy": "echo This will be run after deploying the app"
+  },
+  "os": [ "linux" ],
+  "cpu" : [ "x64", "x86_64" ],
+  "engines": {
+    "node": ">=0.8",
+    "meteor": "*"
+  }
+}
