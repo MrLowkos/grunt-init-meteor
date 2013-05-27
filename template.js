@@ -12,7 +12,7 @@
 exports.description = 'Create a Meteor applacation in Coffeescript or Javascript, including Jasmine unit tests, karma.js ...';
 
 // Template-specific notes to be displayed before question prompts.
-exports.notes = '_Project name_ should ' +
+exports.notes = 'gruny-init-meteor should ' +
   'be a unique ID not already in use at search.npmjs.org.';
 
 // Template-specific notes to be displayed after question prompts.
@@ -32,42 +32,46 @@ exports.template = function(grunt, init, done) {
   init.process({type: 'meteor'}, [
     // Prompt for these values.
     init.prompt('name'),
-    init.prompt('description'),
+    init.prompt('description', 'Coming soon'),
     init.prompt('version'),
-    init.prompt('repository'),
+    init.prompt('git_username', 'MrLowkos'),
     init.prompt('homepage'),
     init.prompt('bugs'),
-    init.prompt('licenses'),
-    init.prompt('author_name'),
-    init.prompt('author_email'),
-    init.prompt('author_url'),
+    init.prompt('licenses', 'MIT'),
+    init.prompt('author_name', 'Quentin Defois'),
+    init.prompt('author_email', "qdefois@gmail.com"),
+    init.prompt('author_url', 'http://eldotk.com'),
     init.prompt('node_version', '>= 0.8.0'),
-    init.prompt('main'),
-    init.prompt('npm_test', 'grunt nodeunit')
-
+    init.prompt('main', './'),
+    init.prompt('npm_test', 'grunt karma/jasmine'),
+    {
+      name: 'travis',
+      message: 'Will this project be tested with Travis CI?',
+      default: 'y/N',
+      warning: 'If selected, you must enable Travis support for this project in https://travis-ci.org/profile'
+    }
   ], function(err, props) {
     props.keywords = [];
     props.devDependencies = {
-      'grunt-contrib-jshint': '~0.1.1',
-      'grunt-contrib-nodeunit': '~0.1.2',
-      'grunt-contrib-watch': '~0.2.0',
-      'grunt-contrib-coffee': '~0.4.0',
-      'grunt-contrib-clean': '~0.4.0',
-      'grunt-contrib-copy': '~0.4.0',
-      'grunt-coffeelint': '~0.0.5',
     };
 
-    // files === {'LICENSE-MIT': 'licenses/LICENSE-MIT'}
-    var files = {};
-		var licenses = ['MIT'];
-		init.addLicenseFiles(files, licenses);
-
+    // TODO: compute dynamically?
+    props.travis = /y/i.test(props.travis);
+    props.travis_node_version = '0.10';
+    props.repository = 'git://github.com/'+ props.git_username +'/'+ props.name +'.git';
 
     // Files to copy (and process).
-    files = init.filesToCopy(props);
+    var files = init.filesToCopy(props);
+    if (!props.travis) { delete files['.travis.yml']; }
+
+    // Add properly-named license files.
+    init.addLicenseFiles(files, props.licenses);
 
     // Actually copy (and process) files.
     init.copyAndProcess(files, props);
+
+    // Generate package.json file.
+    // init.writePackageJSON('package.json', props);
 
     // All done!
     done();
