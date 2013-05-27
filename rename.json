@@ -1,0 +1,6 @@
+{
+	"app/name.js": "app//{%= name %}.js",
+	"app/name.coffee": "app//{%= name %}.coffee",
+	"test/name_test.js": "test/{%= name %}_test.js",	
+	"test/name_test.jcoffee": "test/{%= name %}_test.coffee"
+}
